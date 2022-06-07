@@ -18,7 +18,7 @@ contract FundMe {
 
     function fund() public payable {
         uint256 minimumUsd = 50 * 10 ** 18;
-        require(getConversionRate(msg.value) >= minimumUsd, "FundMe: You need to spend at least $50");
+        require(getConversionRate(msg.value) >= minimumUsd, "Fund: You need to spend at least $50");
         fundedAmount[msg.sender] = msg.value;
         funders.push(msg.sender);
     }
@@ -40,12 +40,8 @@ contract FundMe {
         return ethAmountInUsd;
     }
 
-    modifier onlyOwner {
-        require(msg.sender == owner, "FundMe: You are not the owner of this contract");
-        _;
-    }
-
-    function withdraw() payable public onlyOwner {
+    function withdraw() payable public {
+        require(msg.sender == owner, "Withdraw: You are not the owner of this contract");
         msg.sender.transfer(address(this).balance);
         for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
             address funder = funders[funderIndex];
