@@ -18,7 +18,7 @@ contract FundMe {
 
     function fund() public payable {
         uint256 minimumUsd = 50 * 10 ** 18;
-        require(getConversionRate(msg.value) >= minimumUsd, "Error: You need to spend at least $50");
+        require(getConversionRate(msg.value) >= minimumUsd, "FundMe: You need to spend at least $50");
         fundedAmount[msg.sender] = msg.value;
         funders.push(msg.sender);
     }
@@ -41,7 +41,7 @@ contract FundMe {
     }
 
     modifier onlyOwner {
-        require(msg.sender == owner, "Error: You are not the owner of this contract");
+        require(msg.sender == owner, "FundMe: You are not the owner of this contract");
         _;
     }
 
