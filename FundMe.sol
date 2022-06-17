@@ -12,13 +12,13 @@ contract FundMe {
 
     mapping(address => uint256) public fundedAmount;
 
-    constructor() public {
+    constructor() {
         owner = msg.sender;
     }
 
-    function fund() public payable {
+    function fund() external payable {
         uint256 minimumUsd = 50 * 10 ** 18;
-        require(getConversionRate(msg.value) >= minimumUsd, "Fund: You need to spend at least $50");
+        require(getConversionRate(msg.value) >= minimumUsd, "You need to spend at least $50");
         fundedAmount[msg.sender] = msg.value;
         funders.push(msg.sender);
     }
@@ -40,8 +40,8 @@ contract FundMe {
         return ethAmountInUsd;
     }
 
-    function withdraw() payable public {
-        require(msg.sender == owner, "Withdraw: You are not the owner of this contract");
+    function withdraw() external payable {
+        require(msg.sender == owner, "You are not the owner of this contract");
         msg.sender.transfer(address(this).balance);
         for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
             address funder = funders[funderIndex];
