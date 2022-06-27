@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "./AggregatorV3Interface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract FundMe {
 
@@ -46,12 +46,15 @@ contract FundMe {
         return ethAmountInUsd;
     }
 
-    function withdraw() external payable {
+    function withdraw() external {
         require(msg.sender == owner, "You are not the owner of this contract");
-        msg.sender.transfer(address(this).balance);
-        for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
+        payable(msg.sender).transfer(address(this).balance);
+        for (uint256 funderIndex = 0; funderIndex < funders.length;) {
             address funder = funders[funderIndex];
             fundedAmount[funder] = 0;
+            unchecked {
+                funderIndex++;
+            }
         }
         funders = new address[](0);
     }
