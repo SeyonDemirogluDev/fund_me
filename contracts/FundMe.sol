@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "./AggregatorV3Interface.sol";
 
 contract FundMe {
 
@@ -23,16 +23,16 @@ contract FundMe {
         funders.push(msg.sender);
     }
 
-    function getAggregatorVersion() public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // rinkeby eth to usd conversion address from chainlink data feeds
+    function getAggregatorVersion() internal view returns (uint256) {
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // rinkeby address from chainlink data feeds
         return priceFeed.version();
     }
 
     /**
       * @notice Required for getConversionRate()
       */
-    function getEthPriceInWei() public view returns (uint256) { 
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // rinkeby eth to usd conversion address from chainlink data feeds
+    function getEthPriceInWei() internal view returns (uint256) { 
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // rinkeby address from chainlink data feeds
         (,int256 answer,,,) = priceFeed.latestRoundData();
         return uint256(answer) * 1e10;
     }
@@ -40,7 +40,7 @@ contract FundMe {
     /**
       * @notice Required for fund()
       */
-    function getConversionRate(uint256 ethAmount) public view returns (uint256) {
+    function getConversionRate(uint256 ethAmount) internal view returns (uint256) {
         uint256 ethPriceInWei = getEthPriceInWei();
         uint256 ethAmountInUsd = (ethPriceInWei * ethAmount) / 1e18;
         return ethAmountInUsd;
