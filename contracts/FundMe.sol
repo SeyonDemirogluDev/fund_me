@@ -18,20 +18,20 @@ contract FundMe {
 
     function fund() external payable {
         uint256 minimumUsd = 50 * 1e18;
-        require(getConversionRate(msg.value) >= minimumUsd, "You need to spend at least $50");
+        require(_getConversionRate(msg.value) >= minimumUsd, "You need to spend at least $50");
         fundedAmount[msg.sender] = msg.value;
         funders.push(msg.sender);
     }
 
-    function getAggregatorVersion() internal view returns (uint256) {
+    function _getAggregatorVersion() private view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // rinkeby address from chainlink data feeds
         return priceFeed.version();
     }
 
     /**
-      * @notice Required for getConversionRate()
+      * @notice Required for _getConversionRate()
       */
-    function getEthPriceInWei() internal view returns (uint256) { 
+    function _getEthPriceInWei() private view returns (uint256) { 
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // rinkeby address from chainlink data feeds
         (,int256 answer,,,) = priceFeed.latestRoundData();
         return uint256(answer) * 1e10;
@@ -40,8 +40,8 @@ contract FundMe {
     /**
       * @notice Required for fund()
       */
-    function getConversionRate(uint256 ethAmount) internal view returns (uint256) {
-        uint256 ethPriceInWei = getEthPriceInWei();
+    function _getConversionRate(uint256 ethAmount) private view returns (uint256) {
+        uint256 ethPriceInWei = _getEthPriceInWei();
         uint256 ethAmountInUsd = (ethPriceInWei * ethAmount) / 1e18;
         return ethAmountInUsd;
     }
