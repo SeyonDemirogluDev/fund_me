@@ -10,7 +10,7 @@ owner
 ```
 funders
 ```
-*Array of addresses who've transacted with the contract via fund() function.*
+*Array of addresses who've funded to the smart contract.*
 
 ```
 fundedAmount
