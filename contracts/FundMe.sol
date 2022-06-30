@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "./AggregatorV3Interface.sol";
+import "./PriceConverter.sol";
 
 contract FundMe {
 
