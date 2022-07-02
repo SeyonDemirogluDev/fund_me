@@ -6,15 +6,11 @@ import "./PriceConverter.sol";
 
 contract FundMe {
 
-    address public owner;
+    address public constant OWNER = /*0xYOuRAdDresS*/;
     
     address[] public funders;
 
     mapping(address => uint256) public fundedAmount;
-
-    constructor() {
-        owner = msg.sender;
-    }
 
     function fund() external payable {
         uint256 minimumUsd = 50 * 1e18;
