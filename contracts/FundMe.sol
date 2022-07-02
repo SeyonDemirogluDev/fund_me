@@ -6,7 +6,7 @@ import "./PriceConverter.sol";
 
 contract FundMe {
 
-    address public constant OWNER = msg.sender;
+    address public immutable owner = msg.sender;
     
     address[] public funders;
 
