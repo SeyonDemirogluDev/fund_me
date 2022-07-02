@@ -14,7 +14,7 @@ contract FundMe {
 
     function fund() external payable {
         uint256 minimumUsd = 50 * 1e18;
-        require(_getConversionRate(msg.value) >= minimumUsd, "You need to spend at least $50");
+        require(_getConversionRate(msg.value) >= minimumUsd, "Fund at least 50$");
         fundedAmount[msg.sender] = msg.value;
         funders.push(msg.sender);
     }
@@ -43,7 +43,7 @@ contract FundMe {
     }
 
     function withdraw() external {
-        require(msg.sender == owner, "You are not the owner of this contract");
+        require(msg.sender == owner, "Not owner");
         payable(msg.sender).transfer(address(this).balance);
         for (uint256 funderIndex = 0; funderIndex < funders.length;) {
             address funder = funders[funderIndex];
