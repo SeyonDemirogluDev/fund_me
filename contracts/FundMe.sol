@@ -39,7 +39,6 @@ contract FundMe {
     function _getConversionRate(uint256 ethAmount) private view returns (uint256 ethAmountInUsd) {
         uint256 ethPriceInWei = _getEthPriceInWei();
         ethAmountInUsd = (ethPriceInWei * ethAmount) / 1e18;
-        return ethAmountInUsd;
     }
 
     function withdraw() external {
