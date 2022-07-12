@@ -36,9 +36,9 @@ contract FundMe {
     /**
      * @dev Required for fund()
      */
-    function _getConversionRate(uint256 ethAmount) private view returns (uint256) {
+    function _getConversionRate(uint256 ethAmount) private view returns (uint256 ethAmountInUsd) {
         uint256 ethPriceInWei = _getEthPriceInWei();
-        uint256 ethAmountInUsd = (ethPriceInWei * ethAmount) / 1e18;
+        ethAmountInUsd = (ethPriceInWei * ethAmount) / 1e18;
         return ethAmountInUsd;
     }
 
