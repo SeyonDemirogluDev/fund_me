@@ -25,7 +25,7 @@ contract FundMe {
     }
 
     /**
-     * @notice Required for _getConversionRate()
+     * @dev Required for _getConversionRate()
      */
     function _getEthPriceInWei() private view returns (uint256) { 
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // rinkeby address from chainlink data feeds
@@ -34,7 +34,7 @@ contract FundMe {
     }
 
     /**
-     * @notice Required for fund()
+     * @dev Required for fund()
      */
     function _getConversionRate(uint256 ethAmount) private view returns (uint256) {
         uint256 ethPriceInWei = _getEthPriceInWei();
