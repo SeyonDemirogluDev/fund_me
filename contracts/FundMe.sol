@@ -44,7 +44,7 @@ contract FundMe {
     function withdraw() external {
         require(msg.sender == owner, "Not owner");
         payable(msg.sender).transfer(address(this).balance);
-        for (uint256 funderIndex = 0; funderIndex < funders.length;) {
+        for (uint256 funderIndex; funderIndex < funders.length;) {
             address funder = funders[funderIndex];
             fundedAmount[funder] = 0;
             unchecked { funderIndex++; }
