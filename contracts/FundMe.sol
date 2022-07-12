@@ -6,11 +6,15 @@ import "./AggregatorV3Interface.sol";
 
 contract FundMe {
 
-    address public constant OWNER = msg.sender;
+    address public immutable OWNER;
     
     address[] public funders;
 
     mapping(address => uint256) public fundedAmount;
+
+    constructor() {
+        OWNER = msg.sender;
+    }
 
     function fund() external payable {
         uint256 minimumUsd = 50 * 1e18;
