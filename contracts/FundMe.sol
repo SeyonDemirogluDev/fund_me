@@ -6,14 +6,14 @@ import "./AggregatorV3Interface.sol";
 
 contract FundMe {
 
-    address public immutable OWNER;
+    address public immutable owner;
     
     address[] public funders;
 
     mapping(address => uint256) public fundedAmount;
 
     constructor() {
-        OWNER = msg.sender;
+        owner = msg.sender;
     }
 
     function fund() external payable {
@@ -46,7 +46,7 @@ contract FundMe {
     }
 
     function withdraw() external {
-        require(msg.sender == OWNER, "Not OWNER");
+        require(msg.sender == owner, "Not owner");
         payable(msg.sender).transfer(address(this).balance);
         for (uint256 funderIndex; funderIndex < funders.length;) {
             address funder = funders[funderIndex];
