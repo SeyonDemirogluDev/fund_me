@@ -25,7 +25,7 @@ fund()
 ```
 getAggregatorVersion()
 ```
-*Get version of the aggregator contract that is used.*
+*Get version of the aggregator contract that is used (remote func).*
 
 ```
 getEthPriceInWei()
