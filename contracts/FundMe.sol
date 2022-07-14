@@ -22,7 +22,9 @@ contract FundMe {
         fundedAmount[msg.sender] = msg.value;
         funders.push(msg.sender);
     }
-
+    /**
+     * @dev Remote function
+     */
     function _getAggregatorVersion() private view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // rinkeby address from chainlink data feeds
         return priceFeed.version();
@@ -47,8 +49,9 @@ contract FundMe {
 
     function withdraw() external {
         require(msg.sender == owner, "Not owner");
-        payable(msg.sender).transfer(address(this).balance);
-        for (uint256 funderIndex; funderIndex < funders.length;) {
+        payable(owner).transfer(address(this).balance);
+        uint256 fundersLength = funders.length;
+        for (uint256 funderIndex; funderIndex < fundersLength;) {
             address funder = funders[funderIndex];
             fundedAmount[funder] = 0;
             unchecked { funderIndex++; }
