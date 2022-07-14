@@ -40,4 +40,4 @@ getConversionRate()
 ```
 withdraw()
 ```
-*Function to withdraw fund from contract, only for the owner. Sets funders back to 0.*
+*Function to withdraw fund from contract, only for the owner. Sets funders back to 0, since this is a contract specifically made to be funded.*
