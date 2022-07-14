@@ -54,7 +54,7 @@ contract FundMe {
         for (uint256 funderIndex; funderIndex < fundersLength;) {
             address funder = funders[funderIndex];
             fundedAmount[funder] = 0;
-            unchecked { funderIndex++; }
+            unchecked {funderIndex++;}
         }
         funders = new address[](0);
     }
