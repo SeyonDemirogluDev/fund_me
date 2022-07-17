@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-error NotEnoughFunded();
+error InsufficientFunds();
 error NotOwner();
 
 contract FundMe {
@@ -21,7 +21,7 @@ contract FundMe {
 
     function fund() external payable {
         uint256 minimumUsd = 50 * 1e18;
-        if (_getConversionRate(msg.value) < minimumUsd) revert NotEnoughFunded();  
+        if (_getConversionRate(msg.value) < minimumUsd) revert InsufficientFunds();  
         fundedAmount[msg.sender] = msg.value;
         funders.push(msg.sender);
     }
