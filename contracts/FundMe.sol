@@ -4,6 +4,9 @@ pragma solidity ^0.8.0;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
+error NotEnoughFunded();
+error NotOwner();
+
 contract FundMe {
 
     address public immutable owner;
@@ -18,7 +21,7 @@ contract FundMe {
 
     function fund() external payable {
         uint256 minimumUsd = 50 * 1e18;
-        require(_getConversionRate(msg.value) >= minimumUsd, "Fund at least 50$");
+        if (_getConversionRate(msg.value) < minimumUsd) revert NotEnoughFunded();  
         fundedAmount[msg.sender] = msg.value;
         funders.push(msg.sender);
     }
@@ -48,7 +51,7 @@ contract FundMe {
     }
 
     function withdraw() external {
-        require(msg.sender == owner, "Not owner");
+        if (msg.sender != owner) revert NotOwner();
         payable(owner).transfer(address(this).balance);
         uint256 fundersLength = funders.length;
         for (uint256 funderIndex; funderIndex < fundersLength;) {
