@@ -59,6 +59,6 @@ contract FundMe {
             fundedAmount[funder] = 0;
             unchecked {funderIndex++;}
         }
-        funders = new address[](0);
+        delete funders;
     }
 }
