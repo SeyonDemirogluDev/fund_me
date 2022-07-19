@@ -1,5 +1,4 @@
 # Fund Me
-
 **Fund Me is designed to handle payments, such as funding and withdrawals and check for certain conditions, determined from the real world by getting real world data from Chainlink oracles.**
 
 ```
