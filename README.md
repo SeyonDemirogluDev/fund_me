@@ -1,5 +1,5 @@
 # Fund Me
-**Fund Me is designed to handle payments, such as funding and withdrawals and check for certain conditions, determined from the real world by getting real world data from Chainlink oracles.**
+**Fund Me is designed to handle payments, such as funding and withdrawals and check for certain conditions, by getting real world data from Chainlink oracles.**
 
 ```
 owner
@@ -19,7 +19,7 @@ fundedAmount
 ```
 fund()
 ```
-*Function fund() is payable, which means it can handle transaction with ETH or any other token. Function requires users to fund at least $50. I'm not greedy*
+*Function fund() is payable, which means it can handle transaction with ETH or any other token. Function requires users to fund at least $50.*
 
 ```
 getAggregatorVersion()
